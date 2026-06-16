@@ -53,7 +53,7 @@ define Package/openlist2
   SUBMENU:=Web Servers/Proxies
   TITLE:=A file list program that supports multiple storage
   URL:=https://openlist.team/
-  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle +libfuse
 endef
 
 define Package/openlist2/conffiles
