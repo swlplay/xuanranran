@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rblibtorrent
-PKG_VERSION:=2.0.14
+PKG_VERSION:=2.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=libtorrent-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/arvidn/libtorrent/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=d79fcbc98ed800259ddfc3ef7451a0317d950abdcabf17481fa4236b0cf0f4f0
+PKG_HASH:=5d5b264eb960fafe4a5c935f6c71bc00e02d3dab8872e76dee9dadb27282f912
 PKG_BUILD_DIR:=$(BUILD_DIR)/libtorrent-$(PKG_VERSION)
 
 PKG_LICENSE:=BSD
@@ -20,15 +20,17 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 include ./boost-version.mk
 
+# ========== 新增：拉取 Git 子模块 ==========
 define Build/Prepare
-	$(call Build/Prepare/Default)
-	cd $(PKG_BUILD_DIR) && \
-	git init && \
-	git remote add origin https://github.com/arvidn/libtorrent.git && \
-	git fetch --depth 1 origin v$(PKG_VERSION) && \
-	git checkout FETCH_HEAD && \
-	git submodule update --init --recursive --depth 1
+    $(call Build/Prepare/Default)
+    cd $(PKG_BUILD_DIR) && \
+    git init && \
+    git remote add origin https://github.com/arvidn/libtorrent.git && \
+    git fetch --depth 1 origin v$(PKG_VERSION) && \
+    git checkout FETCH_HEAD && \
+    git submodule update --init --recursive --depth 1
 endef
+# =========================================
 
 define Package/rblibtorrent
   SECTION:=libs
