@@ -20,6 +20,16 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 include ./boost-version.mk
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	cd $(PKG_BUILD_DIR) && \
+	git init && \
+	git remote add origin https://github.com/arvidn/libtorrent.git && \
+	git fetch --depth 1 origin v$(PKG_VERSION) && \
+	git checkout FETCH_HEAD && \
+	git submodule update --init --recursive --depth 1
+endef
+
 define Package/rblibtorrent
   SECTION:=libs
   CATEGORY:=Libraries
