@@ -26,6 +26,7 @@ define Build/Prepare
 	git init && \
 	git remote add origin https://github.com/arvidn/libtorrent.git && \
 	git fetch --depth 1 origin v$(PKG_VERSION) && \
+	find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} + && \
 	git checkout FETCH_HEAD && \
 	git submodule update --init --recursive --depth 1
 endef
